@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Questions</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #ffe6f2;
+        }
+        .container {
+            max-width: 90%;
+            width: 400px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 105, 180, 0.4);
+            border: 3px solid #ff85a2;
+        }
+        h2 {
+            color: #ff4081;
+            font-size: 1.5em;
+        }
+        button {
+            margin: 10px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            background-color: #ff69b4;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 80%;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+        input {
+            padding: 10px;
+            width: 80%;
+            border: 2px solid #ff85a2;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        .gif_container img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.2em;
+            }
+            button {
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+            input {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="content">
+
+        <h2>Helllooooo Shruti. I have 3 questions for you</h2>
+        <div class="gif_container">
+            <img src="coffee.gif" alt="Drinking Coffee GIF">
+        </div>
+        
+        <button onclick="nextQuestion(1)">Start</button>
+        <h5>(plz message me the answer to first 2 question as I am too lazy to code a backend.) </h5>
+    </div>
+
+    <script>
+        let messageIndex = 0;
+        const messages = [
+            "Are you sure?",
+            "Really sure??",
+            "Are you positive?",
+            "Pookie please...",
+            "Just think about it!",
+            "If you say no, I will be really sad...",
+            "I will be very sad...",
+            "I will be very very very sad...",
+            "Ok fine, I will stop asking...",
+            "Just kidding, say yes please! ❤️"
+        ];
+
+        function nextQuestion(step) {
+            const content = document.getElementById('content');
+            if (step === 1) {
+                content.innerHTML = `<h2>What do you like more?</h2>
+                                    <button onclick='nextQuestion(2)'>Handmade Art</button>
+                                    <button onclick='nextQuestion(2)'>Personalized Gift</button>
+                                    <h5>(absolutely not asking for your birthday, hehe)<h5>`;
+            } else if (step === 2) {
+                content.innerHTML = `<h2>Which guitar are you playing latest?</h2>
+                                    <input type='text' id='guitar' placeholder='Type your answer...'/>
+                                    <button onclick='nextQuestion(3)'>Next</button>`;
+            } else if (step === 3) {
+                content.innerHTML = `<h2>Am I your best friend?</h2>
+                                    <button class='yes-button' onclick='showYesPage()'>Yes</button>
+                                    <button class='no-button' onclick='handleNoClick()'>No</button>`;
+            }
+        }
+
+        function handleNoClick() {
+            const noButton = document.querySelector('.no-button');
+            const yesButton = document.querySelector('.yes-button');
+            noButton.textContent = messages[messageIndex];
+            messageIndex = (messageIndex + 1) % messages.length;
+            const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+            yesButton.style.fontSize = `${currentSize * 1.5}px`;
+        }
+
+        function showYesPage() {
+            const content = document.getElementById('content');
+            content.innerHTML = `<h2 class='header_text'>Knew you would say yes!</h2>
+                                 <div class='gif_container'>
+                                    <img src='shinchan.gif'>
+                                 </div>`;
+        }
+    </script>
+</body>
+</html>
